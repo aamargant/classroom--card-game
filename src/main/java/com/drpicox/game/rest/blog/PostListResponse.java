@@ -7,7 +7,7 @@ import java.util.List;
 
 public class PostListResponse {
 
-    private List list;
+    private final List list;
 
     public PostListResponse(List list) {
         this.list = list;

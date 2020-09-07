@@ -1,6 +1,6 @@
 package com.drpicox.game;
 
-import com.drpicox.game.tools.Json;
+import com.drpicox.game.tools.JsonOld;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,28 +28,28 @@ public class BlogTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        var json = new Json(result.getResponse().getContentAsString());
-        assertThat(json).at("list").containsMatch(new Json("{" +
-                "\"id\": \"2019-08-22_let_there_be_light\"," +
-                "\"title\": \"Let there be light\"" +
+        var json = new JsonOld(result.getResponse().getContentAsString());
+        assertThat(json).at("list").containsMatch(new JsonOld("{" +
+                "\"id\": \"2020-08-17_the_game_begins\"," +
+                "\"title\": \"The game begins\"" +
                 "}"));
     }
 
     @Test
     public void read_one_post_by_id() throws Throwable {
-        var result = mockMvc.perform(get("/api/v1/posts/2019-08-22_let_there_be_light"))
+        var result = mockMvc.perform(get("/api/v1/posts/2020-08-17_the_game_begins"))
                 .andExpect(status().isOk())
                 .andReturn();
 
-        var match = new Json("{" +
-                "\"id\": \"2019-08-22_let_there_be_light\"," +
-                "\"title\": \"Let there be light\"" +
+        var match = new JsonOld("{" +
+                "\"id\": \"2020-08-17_the_game_begins\"," +
+                "\"title\": \"The game begins\"" +
                 "}");
 
-        var json = new Json(result.getResponse().getContentAsString());
+        var json = new JsonOld(result.getResponse().getContentAsString());
         assertThat(json).matches(match);
-        assertThat(json).at("body").asString().startsWith("# Let there be light");
-        assertThat(json).at("body").asString().contains("Welcome to the Planets Game.");
+        assertThat(json).at("body").asString().startsWith("# The game begins");
+        assertThat(json).at("body").asString().contains("Welcome to the Card Game.");
     }
 
 }

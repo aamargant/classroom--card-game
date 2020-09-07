@@ -9,22 +9,22 @@ import static com.google.common.truth.Truth.assertAbout;
 
 public class JsonSubject extends Subject {
 
-    private Json root;
-    private Json actual;
+    private JsonOld root;
+    private final JsonOld actual;
     private String path = "";
 
-    public JsonSubject(FailureMetadata metadata, Json actual) {
+    public JsonSubject(FailureMetadata metadata, JsonOld actual) {
         super(metadata, actual);
 
         this.root = actual;
         this.actual = actual;
     }
 
-    public static Factory<JsonSubject, Json> json() {
+    public static Factory<JsonSubject, JsonOld> json() {
         return JsonSubject::new;
     }
 
-    public static JsonSubject assertThat(Json actual) {
+    public static JsonSubject assertThat(JsonOld actual) {
         return assertAbout(json()).that(actual);
     }
 
@@ -32,7 +32,7 @@ public class JsonSubject extends Subject {
         var newPath = path;
         if (path.length() > 0 && !path.endsWith("]") && !subPath.startsWith("[")) {
             newPath += ".";
-        };
+        }
         newPath += subPath;
 
         var result = assertThat(actual.get(subPath));
@@ -41,21 +41,21 @@ public class JsonSubject extends Subject {
         return result;
     }
 
-    public void containsMatch(Json expected) {
+    public void containsMatch(JsonOld expected) {
         var size = actual.filter(current -> current.matches(expected)).size();
         if (size == 0) {
             failWithRoot(".containsMatch(expected)", Fact.fact("expected", expected));
         }
     }
 
-    public void notContainsMatch(Json expected) {
+    public void notContainsMatch(JsonOld expected) {
         var size = actual.filter(current -> current.matches(expected)).size();
         if (size != 0) {
             failWithRoot(".notContainsMatch(expected)", Fact.fact("expected", expected));
         }
     }
 
-    public void matches(Json expected) {
+    public void matches(JsonOld expected) {
         if (!actual.matches(expected)) {
             failWithRoot("matches(expected)", Fact.fact("expected", expected));
         }

@@ -13,13 +13,13 @@ fail() {
 }
 
 # Verify tests
-mvn test  || fail "mvn test"
+./mvnw test  || fail "./mvnw test"
 CI=1 yarn test  || fail "yarn test"
 
 # Compile
 yarn build  || fail "yarn build"
-mvn compile  || fail "mvn compile"
-mvn dependency:copy-dependencies  || fail "mvn dependency:copy-dependencies"
+./mvnw compile  || fail "./mvnw compile"
+./mvnw dependency:copy-dependencies  || fail "./mvnw dependency:copy-dependencies"
 
 # Prepare deploy folder
 rm -fr ./deploy

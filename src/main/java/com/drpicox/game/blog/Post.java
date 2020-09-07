@@ -6,9 +6,9 @@ import java.util.LinkedHashMap;
 
 public class Post {
 
-    private String id;
-    private String title;
-    private String body;
+    private final String id;
+    private final String title;
+    private final String body;
 
     public Post(String id, String title) {
         this(id, title, null);
