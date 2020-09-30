@@ -2,7 +2,7 @@ package com.drpicox.game.round;
 
 import com.drpicox.game.cards.Card;
 import com.drpicox.game.cards.CardController;
-import com.drpicox.game.cards.CardSetFilter;
+import com.drpicox.game.cards.CardListFilter;
 import com.drpicox.game.games.Game;
 import com.drpicox.game.players.Player;
 import com.drpicox.game.players.PlayerController;
@@ -28,6 +28,6 @@ public abstract class EachPlayerRoundRule implements RoundRule {
             runPlayer(player, allCards);
     }
 
-    protected abstract void runPlayer(Player player, CardSetFilter<Card> allCards);
+    protected abstract void runPlayer(Player player, CardListFilter<Card> allCards);
 
 }

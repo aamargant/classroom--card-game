@@ -1,6 +1,6 @@
 package com.drpicox.game.forms;
 
-import com.drpicox.game.cards.CardSetFilter;
+import com.drpicox.game.cards.CardListFilter;
 import com.drpicox.game.games.Game;
 
 import java.util.*;
@@ -11,7 +11,7 @@ public class VisibleGameForm {
     private String currentPlayerName;
     private int round;
     private Map<String, VisiblePlayerForm> players = new TreeMap<>();
-    private Set<VisibleCardForm> cards = new TreeSet<>();
+    private List<VisibleCardForm> cards = new LinkedList<>();
 
     public VisibleGameForm(String currentPlayerName, Game game) {
         this.gameName = game.getName();
@@ -35,8 +35,8 @@ public class VisibleGameForm {
         players.put(visiblePlayerForm.getName(), visiblePlayerForm);
     }
 
-    public CardSetFilter<VisibleCardForm> getCards() {
-        return new CardSetFilter<>(cards);
+    public CardListFilter<VisibleCardForm> getCards() {
+        return new CardListFilter<>(cards);
     }
 
     public void addCard(VisibleCardForm visibleCardForm) {

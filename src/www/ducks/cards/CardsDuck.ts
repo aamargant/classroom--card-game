@@ -1,11 +1,13 @@
 import { Action } from "redux";
-import { set, merge } from "object-path-immutable";
+import { set, wrap } from "object-path-immutable";
 import { push as mutatePush, set as mutateSet } from "object-path";
 import { ReduxReducer } from "../ReduxReducer";
 import { GameState } from "../game/GameState";
 import { CardsState } from "./CardsState";
 import { CardState } from "./CardState";
 import { REPLACE_CARDS } from "./replaceCards";
+import { PLAY_CARD_INTO_PILE } from "./playCardIntoPile";
+import { listPlays } from "./listPlays";
 
 export class CardsDuck implements ReduxReducer {
   reduce(state: GameState & CardsState, action: Action & any): {} {
@@ -13,23 +15,57 @@ export class CardsDuck implements ReduxReducer {
 
     switch (action.type) {
       case REPLACE_CARDS:
-        return merge(state, "cards", computeCards(action.cards));
+        return set(
+          state,
+          "cards",
+          computeCards(action.cards, state.game.currentPlayerName)
+        );
+      case PLAY_CARD_INTO_PILE:
+        return reducePlayCardIntoPile(state, action.card, action.pile);
       default:
         return state;
     }
   }
 }
 
-function computeCards(cards: CardState[]) {
-  const result: CardsState["cards"] = { players: {}, byId: {} };
-  cards.forEach((c) => assignCard(c, result));
+function reducePlayCardIntoPile(
+  state: CardsState,
+  card: CardState,
+  pile: string
+) {
+  const oldCard = card;
+  const newCard = { ...oldCard, pile };
+
+  const oldPath = ["cards", ...getCardPath(oldCard, card.ownerName)];
+  const newPath = ["cards", ...getCardPath(newCard, card.ownerName)];
+
+  return wrap(state)
+    .update(oldPath, (arr) => arr.filter((c: CardState) => c !== oldCard))
+    .update(newPath, (arr = []) => [...arr, newCard])
+    .value();
+}
+
+function computeCards(cards: CardState[], currentUser: string) {
+  const result: CardsState["cards"] = { players: {}, piles: {} };
+  cards.forEach((c) => assignCard(c, currentUser, result));
   return result;
 }
 
-function assignCard(card: CardState, result: CardsState["cards"]) {
-  const { ownerName, square } = card;
+function assignCard(
+  card: CardState,
+  currentUser: string,
+  result: CardsState["cards"]
+) {
+  const { ownerName } = card;
   if (!ownerName) return;
 
-  mutatePush(result, ["players", ownerName, "squares", +square, "cards"], card);
-  mutateSet(result, ["byId", card.id], card);
+  const path = getCardPath(card, currentUser);
+  mutatePush(result, path, card);
+}
+
+function getCardPath(card: CardState, currentUser: string) {
+  const { ownerName, square, pile } = card;
+  return card.pile && card.ownerName === currentUser
+    ? ["piles", pile, "cards"]
+    : ["players", ownerName, "squares", +square, "cards"];
 }

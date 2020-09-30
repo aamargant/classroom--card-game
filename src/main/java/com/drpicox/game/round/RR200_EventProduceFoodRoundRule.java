@@ -2,7 +2,7 @@ package com.drpicox.game.round;
 
 import com.drpicox.game.cards.Card;
 import com.drpicox.game.cards.CardController;
-import com.drpicox.game.cards.CardSetFilter;
+import com.drpicox.game.cards.CardListFilter;
 import com.drpicox.game.cards.Positions;
 import com.drpicox.game.games.Game;
 import org.springframework.stereotype.Component;
@@ -27,7 +27,7 @@ public class RR200_EventProduceFoodRoundRule implements RoundRule {
             pickFoodForField(event, playersFields);
     }
 
-    private void pickFoodForField(Card event, CardSetFilter<Card> playersFields) {
+    private void pickFoodForField(Card event, CardListFilter<Card> playersFields) {
         var fields = playersFields.ofSameName(event);
 
         for (var field: fields)

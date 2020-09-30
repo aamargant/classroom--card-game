@@ -2,7 +2,7 @@ package com.drpicox.game.round;
 
 import com.drpicox.game.cards.Card;
 import com.drpicox.game.cards.CardController;
-import com.drpicox.game.cards.CardSetFilter;
+import com.drpicox.game.cards.CardListFilter;
 import com.drpicox.game.games.Game;
 import com.drpicox.game.players.PlayerController;
 import org.springframework.stereotype.Component;
@@ -26,7 +26,7 @@ public class RR500_DiscardExtraFoodCards implements RoundRule {
             discardExtraCards(foodCards.ofOwner(player));
     }
 
-    private void discardExtraCards(CardSetFilter<Card> ownedFoods) {
+    private void discardExtraCards(CardListFilter<Card> ownedFoods) {
         ownedFoods.stream()
                 .skip(10)
                 .forEach(cardController::discardCard);

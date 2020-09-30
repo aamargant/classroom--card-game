@@ -1,30 +1,27 @@
 package com.drpicox.game.forms;
 
 
-import com.drpicox.game.cards.CardSetFilter;
-
-import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 public class PlayGameForm {
 
     private String playerName;
-    private SortedSet<PlayCardForm> cards = new TreeSet<>();
+    private List<VisibleCardForm> cards = new LinkedList<>();
 
     public PlayGameForm(String playerName) {
         this.playerName = playerName;
     }
 
-    public SortedSet<PlayCardForm> getCards() {
+    public List<VisibleCardForm> getCards() {
         return cards;
     }
 
     public void addCards(Iterable<VisibleCardForm> cards) {
         cards.forEach(c -> addCard(c));
+        Collections.sort(this.cards);
     }
 
     private void addCard(VisibleCardForm c) {
-        cards.add(new PlayCardForm(c.getId(), c.getPile()));
+        cards.add(c);
     }
 }

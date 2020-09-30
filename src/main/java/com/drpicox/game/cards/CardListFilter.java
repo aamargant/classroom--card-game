@@ -8,14 +8,14 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class CardSetFilter<T extends ICard> implements Iterable<T> {
+public class CardListFilter<T extends ICard> implements Iterable<T> {
 
-    private Set<T> cards;
+    private List<T> cards;
 
-    public CardSetFilter(Collection<T> cards) {
-        this(new LinkedHashSet<>(cards));
+    public CardListFilter(Collection<T> cards) {
+        this(new ArrayList<>(cards));
     }
-    public CardSetFilter(Set<T> cards) {
+    public CardListFilter(List<T> cards) {
         this.cards = cards;
     }
 
@@ -26,8 +26,8 @@ public class CardSetFilter<T extends ICard> implements Iterable<T> {
     public Stream<T> stream() {
         return cards.stream();
     }
-    public CardSetFilter<T> filter(Predicate<T> predicate) {
-        return new CardSetFilter(
+    public CardListFilter<T> filter(Predicate<T> predicate) {
+        return new CardListFilter(
                 cards.stream().filter(predicate).collect(Collectors.toSet())
         );
     }
@@ -37,54 +37,54 @@ public class CardSetFilter<T extends ICard> implements Iterable<T> {
     public boolean isEmpty() {
         return cards.isEmpty();
     }
-    public CardSetFilter<T> limit(int count) {
+    public CardListFilter<T> limit(int count) {
         var i = new AtomicInteger();
         return filter(c -> i.getAndIncrement() < count);
     }
 
-    public CardSetFilter<T> ofType(String type) {
+    public CardListFilter<T> ofType(String type) {
         return filter(c -> c.getType().equals(type));
     }
-    public CardSetFilter<T> ofSameName(Card card) {
+    public CardListFilter<T> ofSameName(Card card) {
         return ofName(card.getName());
     }
-    public CardSetFilter<T> ofName(String name) {
+    public CardListFilter<T> ofName(String name) {
         return filter(c -> c.getName().equals(name));
     }
 
-    public CardSetFilter<T> ofOwner(Player owner) {
+    public CardListFilter<T> ofOwner(Player owner) {
         return ofOwner(owner.getName());
     }
-    public CardSetFilter<T> ofOwner(String ownerName) {
+    public CardListFilter<T> ofOwner(String ownerName) {
         return filter(c -> c.getOwnerName().equals(ownerName));
     }
-    public CardSetFilter<T> ofOtherOwnerThan(Player owner) {
+    public CardListFilter<T> ofOtherOwnerThan(Player owner) {
         return ofOtherOwnerThan(owner.getName());
     }
-    public CardSetFilter<T> ofOtherOwnerThan(String ownerName) {
+    public CardListFilter<T> ofOtherOwnerThan(String ownerName) {
         return filter(c -> !c.getOwnerName().equals(ownerName));
     }
 
-    public CardSetFilter<T> atHand() {
+    public CardListFilter<T> atHand() {
         return filter(Positions::atHand);
     }
-    public CardSetFilter<T> atAnySquare() {
+    public CardListFilter<T> atAnySquare() {
         return filter(Positions::atAnySquare);
     }
-    public CardSetFilter<T> atSquare(int square) {
+    public CardListFilter<T> atSquare(int square) {
         return filter(c -> Positions.atSquare(c, square));
     }
 
-    public CardSetFilter<T> atAnyPile() {
+    public CardListFilter<T> atAnyPile() {
         return filter(Positions::atAnyPile);
     }
-    public CardSetFilter<T> atPile(String pile) {
+    public CardListFilter<T> atPile(String pile) {
         return filter(c -> Positions.atPile(c, pile));
     }
-    public CardSetFilter<T> atPile(Player target, int square) {
+    public CardListFilter<T> atPile(Player target, int square) {
         return atPile(target.getName(), square);
     }
-    public CardSetFilter<T> atPile(String targetName, int square) {
+    public CardListFilter<T> atPile(String targetName, int square) {
         return atPile(targetName + "-square-" + square);
     }
 

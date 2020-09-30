@@ -2,7 +2,7 @@ package com.drpicox.game.forms;
 
 import com.drpicox.game.cards.Card;
 import com.drpicox.game.cards.CardController;
-import com.drpicox.game.cards.CardSetFilter;
+import com.drpicox.game.cards.CardListFilter;
 import com.drpicox.game.games.Game;
 import com.drpicox.game.games.GameController;
 import com.drpicox.game.players.Player;
@@ -50,11 +50,11 @@ public class VisibleGameBuilder {
         result.addPlayer(vp);
     }
 
-    private void addCards(CardSetFilter<Card> cards, VisibleGameForm result) {
+    private void addCards(CardListFilter<Card> cards, VisibleGameForm result) {
         cards.forEach(c -> addCard(c, result));
     }
 
     private void addCard(Card c, VisibleGameForm result) {
-        result.addCard(new VisibleCardForm(c.getId(), c.getType(), c.getName(), c.getOwnerName(), c.getSquare(), c.getPile()));
+        result.addCard(new VisibleCardForm(c.getType(), c.getName(), c.getOwnerName(), c.getSquare(), c.getPile()));
     }
 }

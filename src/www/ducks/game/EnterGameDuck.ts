@@ -1,6 +1,5 @@
 import { ApiRest } from "www/ApiRest";
 import { Injector } from "www/injector";
-import { replaceCards } from "../cards";
 import { decrementLoading, incrementLoading } from "../loading";
 import { ReduxAfterAction } from "../ReduxAfterAction";
 import { ReduxStore } from "../ReduxStore";
@@ -24,7 +23,7 @@ export class EnterGameDuck implements ReduxAfterAction {
     const game = await this.apiRest.get(
       `/api/v1/games/${action.body.gameName}/players/${action.body.playerName}`
     );
-    this.reduxStore.dispatch(replaceCards(game.cards));
+
     this.reduxStore.dispatch(replaceGame(game));
     this.reduxStore.dispatch(setView({ root: "Board" }));
     this.reduxStore.dispatch(decrementLoading());

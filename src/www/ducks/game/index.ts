@@ -1,6 +1,5 @@
 export * from "./enterGame";
 export * from "./GameState";
-export * from "./getCurrentPlayerName";
 export * from "./getGameName";
 export * from "./getGameRound";
 export * from "./listPlayers";

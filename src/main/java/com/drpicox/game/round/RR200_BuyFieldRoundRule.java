@@ -2,7 +2,7 @@ package com.drpicox.game.round;
 
 import com.drpicox.game.cards.Card;
 import com.drpicox.game.cards.CardController;
-import com.drpicox.game.cards.CardSetFilter;
+import com.drpicox.game.cards.CardListFilter;
 import com.drpicox.game.players.Player;
 import com.drpicox.game.players.PlayerController;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ public class RR200_BuyFieldRoundRule extends EachPlayerRoundRule {
     }
 
     @Override
-    protected void runPlayer(Player player, CardSetFilter<Card> allCards) {
+    protected void runPlayer(Player player, CardListFilter<Card> allCards) {
         var ofOwner = allCards.ofOwner(player);
         var fields = ofOwner.atAnySquare().ofType("field");
         var foods = ofOwner.atPile("buy-field").ofType("food");
@@ -27,7 +27,7 @@ public class RR200_BuyFieldRoundRule extends EachPlayerRoundRule {
         cardController.pickCard(player, freeSquare, "field");
     }
 
-    private int findFreeSquare(CardSetFilter fields) {
+    private int findFreeSquare(CardListFilter fields) {
         for (var square = 1; square < 5; square++)
             if (fields.atSquare(square).isEmpty()) return square;
 

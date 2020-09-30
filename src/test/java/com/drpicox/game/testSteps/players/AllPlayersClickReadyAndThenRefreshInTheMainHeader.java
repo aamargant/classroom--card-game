@@ -29,11 +29,13 @@ public class AllPlayersClickReadyAndThenRefreshInTheMainHeader extends AbstractP
     protected void run(PostLine line, String[] match) {
         var currentView = testPostForms.getForm(VisibleGameForm.class);
         var playersName = currentView.getPlayersName();
+        var currentPlayer = currentView.getCurrentPlayerName();
         for (var playerName: playersName) {
+            if (playerName.equals(currentPlayer)) continue;
             playersButtons.ready(playerName);
             snapshotService.expectStatusAndForget(200);
         }
 
-        playersButtons.refresh();
+        playersButtons.ready();
     }
 }

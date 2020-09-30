@@ -2,7 +2,7 @@ package com.drpicox.game.round;
 
 import com.drpicox.game.cards.Card;
 import com.drpicox.game.cards.CardController;
-import com.drpicox.game.cards.CardSetFilter;
+import com.drpicox.game.cards.CardListFilter;
 import com.drpicox.game.cards.Positions;
 import com.drpicox.game.players.Player;
 import com.drpicox.game.players.PlayerController;
@@ -15,7 +15,7 @@ public class RR200_BuyKnights extends EachPlayerRoundRule {
         super(playerController, cardController);
     }
 
-    protected void runPlayer(Player player, CardSetFilter<Card> allCards) {
+    protected void runPlayer(Player player, CardListFilter<Card> allCards) {
         var ofOwner = allCards.ofOwner(player);
         var foods = ofOwner.atPile("buy-knight").ofType("food");
         var knights = ofOwner.atHand().ofType("knight");

@@ -1,6 +1,8 @@
 package com.drpicox.game.forms;
 
+import com.drpicox.game.cards.Card;
 import com.drpicox.game.cards.CardController;
+import com.drpicox.game.cards.CardListFilter;
 import com.drpicox.game.games.Game;
 import com.drpicox.game.games.GameController;
 import com.drpicox.game.players.PlayerController;
@@ -23,11 +25,18 @@ public class PlayGameBuilder {
     }
 
     public void replace(Game game, String playerName, PlayGameForm playGameForm) {
-        for (var play: playGameForm.getCards())
-            pileCard(play);
+        var allCards = cardController.findByGame(game).ofOwner(playerName);
+        for (var played: playGameForm.getCards())
+            pileCard(played, allCards);
     }
 
-    private void pileCard(PlayCardForm play) {
-        cardController.pileCard(play.getId(), play.getPile());
+    private void pileCard(VisibleCardForm played, CardListFilter<Card> allCards) {
+        var card = allCards
+                .atSquare(played.getSquare())
+                .ofType(played.getType())
+                .ofName(played.getName())
+                .stream().findAny().get();
+
+        cardController.pileCard(card, played.getPile());
     }
 }

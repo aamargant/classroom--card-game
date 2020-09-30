@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { listPlayers } from "www/ducks/game";
 import { Hand } from "./Hand";
+import { Pile } from "./Pile";
 import { Squares } from "./Squares";
 
 function PlayerView({ player }: { player: string }) {
@@ -16,12 +17,16 @@ function PlayerView({ player }: { player: string }) {
 }
 
 export function BoardView() {
-  // const currentPlayer = useSelector(getCurrentPlayerName);
   const players = useSelector(listPlayers);
   if (players === null) return null;
 
   return (
     <div>
+      <div>Piles</div>
+      <Pile name="event" />
+      <Pile name="buy-field" />
+      <Pile name="buy-knight" />
+      <hr />
       {players.map((player) => (
         <PlayerView player={player} key={player} />
       ))}

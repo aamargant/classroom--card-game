@@ -17,8 +17,8 @@ public class CardController {
         this.randomCardPicker = randomCardPicker;
     }
 
-    public CardSetFilter<Card> findByGame(Game game) {
-        return new CardSetFilter<>(cardRepository.findByGame(game));
+    public CardListFilter<Card> findByGame(Game game) {
+        return new CardListFilter<>(cardRepository.findByGame(game));
     }
 
     public void createCards(Game game, String type, String name, int count) {
@@ -48,26 +48,14 @@ public class CardController {
         return card;
     }
 
-    public List<Card> findPlayedCards(String pileName, String cardType) {
-        return cardRepository.findByPileAndType(pileName, cardType);
-    }
-
-    public List<Card> findByOwnerAtTable(Player player) {
-        return cardRepository.findByOwnerAndSquareNotAndPileNot(player, 0, "");
-    }
-
     public void discardCard(Card card) {
         card.discard();
         cardRepository.save(card);
     }
 
-    public Optional<Card> pileCard(long id, String pile) {
-        var result = cardRepository.findById(id);
-        result.ifPresent(card -> {
-            card.pile(pile);
-            cardRepository.save(card);
-        });
-        return result;
+    public void pileCard(Card card, String pile) {
+        card.pile(pile);
+        cardRepository.save(card);
     }
 
     public void moveCardToSquare(Card card, int square) {

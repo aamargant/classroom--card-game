@@ -1,13 +1,14 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getCurrentUser } from "www/ducks/currentUser";
 import { readyGame, refreshGame } from "www/ducks/game";
-import { getCurrentPlayerName, getGameRound } from "www/ducks/game";
+import { getGameRound } from "www/ducks/game";
 import { isLoading } from "www/ducks/loading";
 import { setView } from "www/ducks/view";
 
 export function MainHeader() {
   const dispatch = useDispatch();
-  const playerName = useSelector(getCurrentPlayerName);
+  const playerName = useSelector(getCurrentUser);
   const round = useSelector(getGameRound);
   const loading = useSelector(isLoading);
   const newGame = () => dispatch(setView({ root: "NewGame" }));

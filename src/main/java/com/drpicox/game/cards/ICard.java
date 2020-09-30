@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface ICard {
 
-    Long getId();
     String getType();
     String getName();
     String getOwnerName();

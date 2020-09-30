@@ -1,4 +1,4 @@
-import { CardState } from "../game";
+import { CardState } from "./CardState";
 
 export interface CardsSquareState {
   cards: CardState[];

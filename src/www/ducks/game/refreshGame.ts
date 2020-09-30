@@ -1,7 +1,6 @@
 export const REFRESH_GAME = "game/REFRESH_GAME";
-export function refreshGame(body: object) {
+export function refreshGame() {
   return {
     type: REFRESH_GAME,
-    body,
   };
 }
