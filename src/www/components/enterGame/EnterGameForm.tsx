@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { enterGame } from "www/ducks/game";
-import { InputText } from "../form";
+import { InputText, Form } from "../form";
 
 export function EnterGameForm() {
   const dispatch = useDispatch();
@@ -20,11 +20,11 @@ export function EnterGameForm() {
   };
 
   return (
-    <form onSubmit={submit}>
+    <Form onSubmit={submit}>
       <InputText ref={gameName} label="New game name:" />
       <InputText ref={playerName} label="Player name:" />
 
       <button type="submit">Enter</button>
-    </form>
+    </Form>
   );
 }

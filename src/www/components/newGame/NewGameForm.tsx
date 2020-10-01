@@ -1,8 +1,7 @@
 import React, { useState, useRef, createRef } from "react";
 import { useDispatch } from "react-redux";
 import { newGame } from "www/ducks/newGame";
-import { InputText } from "../form";
-import { Select } from "../form";
+import { InputText, Select, Form } from "../form";
 
 export function NewGameForm() {
   const dispatch = useDispatch();
@@ -27,7 +26,7 @@ export function NewGameForm() {
   };
 
   return (
-    <form onSubmit={submit}>
+    <Form onSubmit={submit}>
       <InputText ref={gameName} label="New game name:" />
       <Select
         ref={scenario}
@@ -40,6 +39,6 @@ export function NewGameForm() {
       ))}
       <button onClick={addPlayer}>Add player</button>
       <button type="submit">Create Game</button>
-    </form>
+    </Form>
   );
 }

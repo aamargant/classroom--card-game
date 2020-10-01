@@ -8,10 +8,10 @@ import { Squares } from "./Squares";
 function PlayerView({ player }: { player: string }) {
   return (
     <>
-      <div>{player}</div>
+      <h3>Player: {player}</h3>
       <Squares player={player} key={player} />
       <Hand player={player} />
-      <hr />
+      <br />
     </>
   );
 }
@@ -22,7 +22,7 @@ export function BoardView() {
 
   return (
     <div>
-      <div>Piles</div>
+      <br />
       <Pile name="event" />
       <Pile name="buy-field" />
       <Pile name="buy-knight" />
