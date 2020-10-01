@@ -13,7 +13,7 @@ export class PostReader {
       if (line.isSection()) currentSection = currentSubsection = line.getSlug();
       else if (line.isSubsection()) currentSubsection = line.getSlug();
 
-      result.addLine(currentSection, currentSubsection, line);
+      result.addLine(currentSection, currentSubsection as string, line);
     });
 
     return result;

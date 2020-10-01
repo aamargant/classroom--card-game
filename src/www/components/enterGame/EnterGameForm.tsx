@@ -8,7 +8,7 @@ export function EnterGameForm() {
   const gameName: any = useRef();
   const playerName: any = useRef();
 
-  const submit = (e: any) => {
+  const submit = (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault();
 
     dispatch(
@@ -24,7 +24,7 @@ export function EnterGameForm() {
       <InputText ref={gameName} label="New game name:" />
       <InputText ref={playerName} label="Player name:" />
 
-      <input type="submit" value="Enter" />
+      <button type="submit">Enter</button>
     </form>
   );
 }

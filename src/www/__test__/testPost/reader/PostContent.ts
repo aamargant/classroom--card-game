@@ -11,7 +11,7 @@ export class PostContent {
     return this.postId;
   }
 
-  addLine(sectionName: string, subsectionName: string, line: PostLine) {
+  addLine(sectionName: string | null, subsectionName: string, line: PostLine) {
     if (sectionName == null) return;
 
     if (!this.sectionsByName[sectionName]) {

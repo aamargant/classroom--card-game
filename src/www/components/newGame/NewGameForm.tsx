@@ -1,4 +1,3 @@
-import { create } from "object-path";
 import React, { useState, useRef, createRef } from "react";
 import { useDispatch } from "react-redux";
 import { newGame } from "www/ducks/newGame";
@@ -10,12 +9,12 @@ export function NewGameForm() {
   const gameName: any = useRef();
   const scenario: any = useRef();
   const [players, setPlayers] = useState([createRef()]);
-  const addPlayer = (e) => {
+  const addPlayer = (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault();
     setPlayers((p) => [...p, createRef()]);
   };
 
-  const submit = (e: any) => {
+  const submit = (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault();
 
     dispatch(
@@ -40,7 +39,7 @@ export function NewGameForm() {
         <InputText ref={p} label={`Player ${idx + 1} name:`} key={idx} />
       ))}
       <button onClick={addPlayer}>Add player</button>
-      <input type="submit" value="Create Game" />
+      <button type="submit">Create Game</button>
     </form>
   );
 }

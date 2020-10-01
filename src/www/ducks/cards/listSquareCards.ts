@@ -1,5 +1,5 @@
-import { CardState } from "../game";
 import { CardsState } from "./CardsState";
+import { CardState } from "./CardState";
 
 const EMPTY: CardState[] = [];
 export function listSquareCards(

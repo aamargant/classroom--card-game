@@ -1,8 +1,31 @@
 {
   "name": "classroom--card-game",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@testing-library/dom": "^7.24.3",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/object-path": "^0.11.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "@types/react-redux": "^7.1.9",
+    "object-path": "^0.11.4",
+    "object-path-immutable": "^4.1.0",
+    "pretty-format": "^26.4.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-markdown": "^4.3.1",
+    "react-redux": "^7.2.1",
+    "react-scripts": "3.4.3",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "typescript": "~3.8.3"
+  },
+  "other": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.0.4",
     "@testing-library/user-event": "^12.1.6",
@@ -14,6 +37,7 @@
     "@types/react-redux": "^7.1.9",
     "@types/redux": "^3.6.0",
     "@types/redux-thunk": "^2.1.0",
+    "emotion": "^10.0.27",
     "jest-environment-jsdom-sixteen": "^1.0.3",
     "object-path": "^0.11.4",
     "object-path-immutable": "^4.1.0",
@@ -49,5 +73,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "jest-environment-jsdom-sixteen": "^1.0.3"
   }
 }

@@ -6,7 +6,7 @@ export class PLSEmptyLine implements PostLineStep {
     return !!line.match(/^\s*$/);
   }
 
-  run(line: PostLine) {
+  async run(line: PostLine) {
     // Do nothing
   }
 

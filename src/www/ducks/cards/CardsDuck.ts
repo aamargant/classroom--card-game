@@ -1,13 +1,12 @@
 import { Action } from "redux";
 import { set, wrap } from "object-path-immutable";
-import { push as mutatePush, set as mutateSet } from "object-path";
+import { push as mutatePush } from "object-path";
 import { ReduxReducer } from "../ReduxReducer";
 import { GameState } from "../game/GameState";
 import { CardsState } from "./CardsState";
 import { CardState } from "./CardState";
 import { REPLACE_CARDS } from "./replaceCards";
 import { PLAY_CARD_INTO_PILE } from "./playCardIntoPile";
-import { listPlays } from "./listPlays";
 
 export class CardsDuck implements ReduxReducer {
   reduce(state: GameState & CardsState, action: Action & any): {} {
