@@ -10,10 +10,7 @@ export function BlogPostView() {
 
   return (
     <article>
-      <h1>{post.title}</h1>
-      <div>
-        <ReactMarkdown source={post.body} escapeHtml={false} />
-      </div>
+      <ReactMarkdown source={post.body} escapeHtml={false} />
     </article>
   );
 }

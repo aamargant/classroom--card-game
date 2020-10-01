@@ -20,8 +20,7 @@ const BLOG_LIST = [
 ];
 const POST_P1 = {
   id: "p1",
-  title: "Let there be light",
-  body: "The final game",
+  body: "# The title\nThe final game",
 };
 
 test("shows the blog list", async () => {
@@ -37,7 +36,7 @@ test("shows the post content", async () => {
   await goToBlogPostView("Let there be light");
   await mockRespondAPI("GET", "/api/v1/posts/p1", POST_P1);
 
-  expect(screen.getByText("Let there be light")).toBeInTheDocument();
+  expect(screen.getByText("The title")).toBeInTheDocument();
   expect(screen.getByText("The final game")).toBeInTheDocument();
 });
 

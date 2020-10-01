@@ -4,6 +4,7 @@ import com.drpicox.game.forms.VisibleGameBuilder;
 import com.drpicox.game.forms.NewGameBuilder;
 import com.drpicox.game.forms.NewGameForm;
 import com.drpicox.game.forms.VisibleGameForm;
+import com.google.gson.Gson;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,7 +18,8 @@ public class GameRestController {
     }
 
     @PostMapping
-    public void replace(@RequestBody NewGameForm newGameForm) {
+    public SuccessForm replace(@RequestBody NewGameForm newGameForm) {
         newGameBuilder.replace(newGameForm);
+        return new SuccessForm();
     }
 }

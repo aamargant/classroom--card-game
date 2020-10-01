@@ -5,14 +5,9 @@ import { ReduxAfterAction } from "./ReduxAfterAction";
 import { ReduxReducer } from "./ReduxReducer";
 
 const appCompose =
-  compose ||
-  // @ts-ignore
-  (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
-    // @ts-ignore
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-      trace: true,
-      traceLimit: 25,
-    }));
+  (typeof window !== "undefined" &&
+    (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+  compose;
 
 export class ReduxStore {
   private store: any;

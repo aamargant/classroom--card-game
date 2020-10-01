@@ -25,31 +25,6 @@
     "redux-thunk": "^2.3.0",
     "typescript": "~3.8.3"
   },
-  "other": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.0.4",
-    "@testing-library/user-event": "^12.1.6",
-    "@types/jest": "^26.0.14",
-    "@types/node": "^14.11.2",
-    "@types/object-path": "^0.11.0",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
-    "@types/react-redux": "^7.1.9",
-    "@types/redux": "^3.6.0",
-    "@types/redux-thunk": "^2.1.0",
-    "emotion": "^10.0.27",
-    "jest-environment-jsdom-sixteen": "^1.0.3",
-    "object-path": "^0.11.4",
-    "object-path-immutable": "^4.1.0",
-    "pretty-format": "^26.4.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-markdown": "^4.3.1",
-    "react-redux": "^7.2.1",
-    "react-scripts": "3.4.3",
-    "reselect": "^4.0.0",
-    "typescript": "~4.0.3"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -76,5 +51,6 @@
   },
   "devDependencies": {
     "jest-environment-jsdom-sixteen": "^1.0.3"
-  }
+  },
+  "proxy": "http://localhost:8080"
 }
