@@ -13,6 +13,7 @@ export function MainHeader() {
   const loading = useSelector(isLoading);
   const newGame = () => dispatch(setView({ root: "NewGame" }));
   const enterGame = () => dispatch(setView({ root: "EnterGame" }));
+  const goToBlog = () => dispatch(setView({ root: "Blog" }));
   const ready = () => dispatch(readyGame());
   const refresh = () => dispatch(refreshGame());
 
@@ -21,6 +22,7 @@ export function MainHeader() {
       Header
       <button onClick={newGame}>New Game</button>
       <button onClick={enterGame}>Enter Game</button>
+      <button onClick={goToBlog}>Blog</button>
       {playerName && (
         <span data-testid="current-player-name">{playerName}</span>
       )}

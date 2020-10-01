@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { getView } from "www/ducks/view";
+import { BlogView, BlogPostView } from "../blog";
 import { BoardView } from "../board/BoardView";
 import { NewGameView } from "../newGame/NewGameView";
 import { EnterGameView } from "../enterGame/EnterGameView";
@@ -12,6 +13,8 @@ const Views = {
   EnterGameView,
   MainView,
   NewGameView,
+  BlogView,
+  BlogPostView,
 } as { [name: string]: typeof MainView };
 
 export function CurrentView() {
