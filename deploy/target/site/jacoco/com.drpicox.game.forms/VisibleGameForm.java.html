@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VisibleGameForm.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Card Game</a> &gt; <a href="index.source.html" class="el_package">com.drpicox.game.forms</a> &gt; <span class="el_source">VisibleGameForm.java</span></div><h1>VisibleGameForm.java</h1><pre class="source lang-java linenums">package com.drpicox.game.forms;
+
+import com.drpicox.game.cards.CardListFilter;
+import com.drpicox.game.games.Game;
+
+import java.util.*;
+
+public class VisibleGameForm {
+
+    private String gameName;
+    private String currentPlayerName;
+    private int round;
+<span class="fc" id="L13">    private Map&lt;String, VisiblePlayerForm&gt; players = new TreeMap&lt;&gt;();</span>
+<span class="fc" id="L14">    private List&lt;VisibleCardForm&gt; cards = new LinkedList&lt;&gt;();</span>
+
+<span class="fc" id="L16">    public VisibleGameForm(String currentPlayerName, Game game) {</span>
+<span class="fc" id="L17">        this.gameName = game.getName();</span>
+<span class="fc" id="L18">        this.round = game.getRound();</span>
+<span class="fc" id="L19">        this.currentPlayerName = currentPlayerName;</span>
+<span class="fc" id="L20">    }</span>
+
+    public String getGameName() {
+<span class="fc" id="L23">        return gameName;</span>
+    }
+
+    public String getCurrentPlayerName() {
+<span class="fc" id="L27">        return currentPlayerName;</span>
+    }
+
+    public int getRound() {
+<span class="fc" id="L31">        return round;</span>
+    }
+
+    public void addPlayer(VisiblePlayerForm visiblePlayerForm) {
+<span class="fc" id="L35">        players.put(visiblePlayerForm.getName(), visiblePlayerForm);</span>
+<span class="fc" id="L36">    }</span>
+
+    public CardListFilter&lt;VisibleCardForm&gt; getCards() {
+<span class="fc" id="L39">        return new CardListFilter&lt;&gt;(cards);</span>
+    }
+
+    public void addCard(VisibleCardForm visibleCardForm) {
+<span class="fc" id="L43">        cards.add(visibleCardForm);</span>
+<span class="fc" id="L44">    }</span>
+
+    public PlayGameForm createPlayForm(String playerName) {
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (!playerName.equals(this.currentPlayerName)) return null;</span>
+<span class="fc" id="L48">        return createPlayForm();</span>
+    }
+
+    public PlayGameForm createPlayForm() {
+<span class="fc" id="L52">        var result = new PlayGameForm(currentPlayerName);</span>
+<span class="fc" id="L53">        var cards = getCards().ofOwner(currentPlayerName).atAnyPile();</span>
+<span class="fc" id="L54">        result.addCards(cards);</span>
+
+<span class="fc" id="L56">        return result;</span>
+    }
+
+    public Collection&lt;String&gt; getPlayersName() {
+<span class="fc" id="L60">        return players.keySet();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

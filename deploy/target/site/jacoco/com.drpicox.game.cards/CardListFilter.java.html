@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CardListFilter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Card Game</a> &gt; <a href="index.source.html" class="el_package">com.drpicox.game.cards</a> &gt; <span class="el_source">CardListFilter.java</span></div><h1>CardListFilter.java</h1><pre class="source lang-java linenums">package com.drpicox.game.cards;
+
+import com.drpicox.game.players.Player;
+
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class CardListFilter&lt;T extends ICard&gt; implements Iterable&lt;T&gt; {
+
+    private List&lt;T&gt; cards;
+
+    public CardListFilter(Collection&lt;T&gt; cards) {
+<span class="fc" id="L16">        this(new ArrayList&lt;&gt;(cards));</span>
+<span class="fc" id="L17">    }</span>
+<span class="fc" id="L18">    public CardListFilter(List&lt;T&gt; cards) {</span>
+<span class="fc" id="L19">        this.cards = cards;</span>
+<span class="fc" id="L20">    }</span>
+
+    @Override
+    public Iterator&lt;T&gt; iterator() {
+<span class="fc" id="L24">        return cards.iterator();</span>
+    }
+    public Stream&lt;T&gt; stream() {
+<span class="fc" id="L27">        return cards.stream();</span>
+    }
+    public CardListFilter&lt;T&gt; filter(Predicate&lt;T&gt; predicate) {
+<span class="fc" id="L30">        return new CardListFilter(</span>
+<span class="fc" id="L31">                cards.stream().filter(predicate).collect(Collectors.toSet())</span>
+        );
+    }
+    public int count() {
+<span class="fc" id="L35">        return cards.size();</span>
+    }
+    public boolean isEmpty() {
+<span class="fc" id="L38">        return cards.isEmpty();</span>
+    }
+    public CardListFilter&lt;T&gt; limit(int count) {
+<span class="fc" id="L41">        var i = new AtomicInteger();</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        return filter(c -&gt; i.getAndIncrement() &lt; count);</span>
+    }
+
+    public CardListFilter&lt;T&gt; ofType(String type) {
+<span class="fc" id="L46">        return filter(c -&gt; c.getType().equals(type));</span>
+    }
+    public CardListFilter&lt;T&gt; ofSameName(Card card) {
+<span class="fc" id="L49">        return ofName(card.getName());</span>
+    }
+    public CardListFilter&lt;T&gt; ofName(String name) {
+<span class="fc" id="L52">        return filter(c -&gt; c.getName().equals(name));</span>
+    }
+
+    public CardListFilter&lt;T&gt; ofOwner(Player owner) {
+<span class="fc" id="L56">        return ofOwner(owner.getName());</span>
+    }
+    public CardListFilter&lt;T&gt; ofOwner(String ownerName) {
+<span class="fc" id="L59">        return filter(c -&gt; c.getOwnerName().equals(ownerName));</span>
+    }
+    public CardListFilter&lt;T&gt; ofOtherOwnerThan(Player owner) {
+<span class="fc" id="L62">        return ofOtherOwnerThan(owner.getName());</span>
+    }
+    public CardListFilter&lt;T&gt; ofOtherOwnerThan(String ownerName) {
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        return filter(c -&gt; !c.getOwnerName().equals(ownerName));</span>
+    }
+
+    public CardListFilter&lt;T&gt; atHand() {
+<span class="fc" id="L69">        return filter(Positions::atHand);</span>
+    }
+    public CardListFilter&lt;T&gt; atAnySquare() {
+<span class="fc" id="L72">        return filter(Positions::atAnySquare);</span>
+    }
+    public CardListFilter&lt;T&gt; atSquare(int square) {
+<span class="fc" id="L75">        return filter(c -&gt; Positions.atSquare(c, square));</span>
+    }
+
+    public CardListFilter&lt;T&gt; atAnyPile() {
+<span class="fc" id="L79">        return filter(Positions::atAnyPile);</span>
+    }
+    public CardListFilter&lt;T&gt; atPile(String pile) {
+<span class="fc" id="L82">        return filter(c -&gt; Positions.atPile(c, pile));</span>
+    }
+    public CardListFilter&lt;T&gt; atPile(Player target, int square) {
+<span class="fc" id="L85">        return atPile(target.getName(), square);</span>
+    }
+    public CardListFilter&lt;T&gt; atPile(String targetName, int square) {
+<span class="fc" id="L88">        return atPile(targetName + &quot;-square-&quot; + square);</span>
+    }
+
+    public List&lt;String&gt; asStrings(String format) {
+<span class="nc" id="L92">        return cards.stream().map(c -&gt; asString(c, format)).collect(Collectors.toList());</span>
+    }
+
+    private String asString(ICard c, String format) {
+<span class="nc" id="L96">        return format</span>
+<span class="nc" id="L97">                .replaceAll(&quot;T&quot;, c.getType())</span>
+<span class="nc" id="L98">                .replaceAll(&quot;N&quot;, c.getName());</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L103">        return &quot;{\n- &quot; +</span>
+<span class="nc" id="L104">                cards.stream().map(c -&gt; c.toString()).collect(Collectors.joining(&quot;\n- &quot;)) +</span>
+                '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

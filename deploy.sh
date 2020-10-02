@@ -30,7 +30,7 @@ mv ./target ./deploy
 # Commit and deploy
 git add --all || fail "git add --all"
 git commit -m "DEPLOY v$(cat package.json | grep version | cut -d '"' -f 4) $(date "+DATE: %Y-%m-%d / TIME: %H:%M:%S")" || fail "git commit"
-git push heroku master || fail "git push heroku master"
+git push --force heroku master || fail "git push heroku master"
 
 # All ok.
 heroku open

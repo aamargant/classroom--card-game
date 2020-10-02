@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RR200_EventProduceFoodRoundRule.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Card Game</a> &gt; <a href="index.source.html" class="el_package">com.drpicox.game.round</a> &gt; <span class="el_source">RR200_EventProduceFoodRoundRule.java</span></div><h1>RR200_EventProduceFoodRoundRule.java</h1><pre class="source lang-java linenums">package com.drpicox.game.round;
+
+import com.drpicox.game.cards.Card;
+import com.drpicox.game.cards.CardController;
+import com.drpicox.game.cards.CardListFilter;
+import com.drpicox.game.cards.Positions;
+import com.drpicox.game.games.Game;
+import org.springframework.stereotype.Component;
+
+@Component
+public class RR200_EventProduceFoodRoundRule implements RoundRule {
+
+    private final CardController cardController;
+
+<span class="fc" id="L15">    public RR200_EventProduceFoodRoundRule(CardController cardController) {</span>
+<span class="fc" id="L16">        this.cardController = cardController;</span>
+<span class="fc" id="L17">    }</span>
+
+    @Override
+    public void run(Game game) {
+<span class="fc" id="L21">        var allCards = cardController.findByGame(game);</span>
+
+<span class="fc" id="L23">        var playedFoodEvents = allCards.atPile(&quot;event&quot;);</span>
+<span class="fc" id="L24">        var playersFields = allCards.atAnySquare().ofType(&quot;field&quot;);</span>
+
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        for (var event: playedFoodEvents)</span>
+<span class="fc" id="L27">            pickFoodForField(event, playersFields);</span>
+<span class="fc" id="L28">    }</span>
+
+    private void pickFoodForField(Card event, CardListFilter&lt;Card&gt; playersFields) {
+<span class="fc" id="L31">        var fields = playersFields.ofSameName(event);</span>
+
+<span class="fc bfc" id="L33" title="All 2 branches covered.">        for (var field: fields)</span>
+<span class="fc" id="L34">            pickFoodForField(field);</span>
+<span class="fc" id="L35">    }</span>
+
+    private void pickFoodForField(Card field) {
+<span class="fc" id="L38">        var owner = field.getOwner();</span>
+<span class="fc" id="L39">        cardController.pickCard(owner, Positions.HAND, &quot;food&quot;);</span>
+<span class="fc" id="L40">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
