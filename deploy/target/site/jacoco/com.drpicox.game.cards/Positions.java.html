@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Positions.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Card Game</a> &gt; <a href="index.source.html" class="el_package">com.drpicox.game.cards</a> &gt; <span class="el_source">Positions.java</span></div><h1>Positions.java</h1><pre class="source lang-java linenums">package com.drpicox.game.cards;
+
+import java.util.function.Predicate;
+
+<span class="nc" id="L5">public class Positions {</span>
+    public static final int HAND = 0;
+
+    public static boolean atAnyPile(ICard card) {
+<span class="fc bfc" id="L9" title="All 2 branches covered.">        return !atPile(card, &quot;&quot;);</span>
+    }
+    public static boolean atPile(ICard card, String pile) {
+<span class="fc" id="L12">        return card.getPile().equals(pile);</span>
+    }
+
+    public static boolean atAnySquare(ICard card) {
+<span class="pc bpc" id="L16" title="1 of 4 branches missed.">        return card.getSquare() &gt; 0 &amp;&amp; !atAnyPile(card);</span>
+    }
+    public static boolean atSquare(ICard card, int square) {
+<span class="fc bfc" id="L19" title="All 4 branches covered.">        return card.getSquare() == square &amp;&amp; !atAnyPile(card);</span>
+    }
+
+    public static boolean atHand(ICard card) {
+<span class="fc bfc" id="L23" title="All 4 branches covered.">        return card.getSquare() == 0 &amp;&amp; !atAnyPile(card);</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

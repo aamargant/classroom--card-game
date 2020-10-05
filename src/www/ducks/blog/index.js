@@ -1,4 +1,7 @@
-import reduceBlog from "./reducer/index";
-import blogMiddleware from "./middleware/index";
+export * from "./BlogState";
+export * from "./getCurrentPost";
+export * from "./getPostList";
+export * from "./replaceCurrentPost";
+export * from "./replacePostList";
 
-export { reduceBlog as default, blogMiddleware as middleware };
+export { default } from "./configureInjector";

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BlogController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Card Game</a> &gt; <a href="index.source.html" class="el_package">com.drpicox.game.blog</a> &gt; <span class="el_source">BlogController.java</span></div><h1>BlogController.java</h1><pre class="source lang-java linenums">package com.drpicox.game.blog;
+
+import org.springframework.stereotype.Component;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.LineNumberReader;
+import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
+
+@Component
+<span class="fc" id="L13">public class BlogController {</span>
+
+    public List&lt;Post&gt; listAll() throws Exception {
+<span class="fc" id="L16">        var result = new LinkedList&lt;Post&gt;();</span>
+
+<span class="fc" id="L18">        var files = getResourceBlogFiles();</span>
+<span class="fc bfc" id="L19" title="All 2 branches covered.">        for (File f : files) {</span>
+<span class="fc" id="L20">            var id = f.getName().split(&quot;\\.&quot;)[0];</span>
+<span class="fc" id="L21">            var title = getTitle(f);</span>
+<span class="fc" id="L22">            result.add(new Post(id, title));</span>
+        }
+<span class="fc" id="L24">        return result;</span>
+    }
+
+    public Post getPost(String postId) throws Exception {
+<span class="fc" id="L28">        var path = getBlogPath();</span>
+<span class="fc" id="L29">        var file = new File(path, postId + &quot;.md&quot;);</span>
+<span class="fc" id="L30">        var title = getTitle(file);</span>
+<span class="fc" id="L31">        var body = getBody(file);</span>
+
+<span class="fc" id="L33">        return new Post(postId, title, body);</span>
+    }
+
+    private String getTitle(File f) throws Exception {
+<span class="fc" id="L37">        var fr = new FileReader(f);</span>
+<span class="fc" id="L38">        var lr = new LineNumberReader(fr);</span>
+<span class="fc" id="L39">        var title = lr.readLine().substring(2);</span>
+<span class="fc" id="L40">        lr.close();</span>
+<span class="fc" id="L41">        fr.close();</span>
+<span class="fc" id="L42">        return title;</span>
+    }
+
+    private String getBody(File f) throws Exception {
+<span class="fc" id="L46">        var body = new StringBuilder();</span>
+<span class="fc" id="L47">        var chars = new char[4096];</span>
+
+<span class="fc" id="L49">        try (var fr = new FileReader(f)) {</span>
+<span class="fc" id="L50">            var count = fr.read(chars);</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">            while (count &gt; 0) {</span>
+<span class="fc" id="L52">                body.append(chars, 0, count);</span>
+<span class="fc" id="L53">                count = fr.read(chars);</span>
+            }
+        }
+
+<span class="fc" id="L57">        return body.toString().replaceAll(&quot;\r&quot;, &quot; &quot;);</span>
+    }
+
+    private File[] getResourceBlogFiles() {
+<span class="fc" id="L61">        String path = getBlogPath();</span>
+<span class="fc" id="L62">        return new File(path).listFiles();</span>
+    }
+
+    private String getBlogPath() {
+<span class="fc" id="L66">        ClassLoader loader = Thread.currentThread().getContextClassLoader();</span>
+<span class="fc" id="L67">        URL url = loader.getResource(&quot;blog&quot;);</span>
+<span class="fc" id="L68">        return url.getPath().replaceAll(&quot;%20&quot;, &quot; &quot;);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

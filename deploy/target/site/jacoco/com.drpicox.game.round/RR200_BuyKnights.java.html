@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RR200_BuyKnights.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Card Game</a> &gt; <a href="index.source.html" class="el_package">com.drpicox.game.round</a> &gt; <span class="el_source">RR200_BuyKnights.java</span></div><h1>RR200_BuyKnights.java</h1><pre class="source lang-java linenums">package com.drpicox.game.round;
+
+import com.drpicox.game.cards.Card;
+import com.drpicox.game.cards.CardController;
+import com.drpicox.game.cards.CardListFilter;
+import com.drpicox.game.cards.Positions;
+import com.drpicox.game.players.Player;
+import com.drpicox.game.players.PlayerController;
+import org.springframework.stereotype.Component;
+
+@Component
+public class RR200_BuyKnights extends EachPlayerRoundRule {
+
+    public RR200_BuyKnights(PlayerController playerController, CardController cardController) {
+<span class="fc" id="L15">        super(playerController, cardController);</span>
+<span class="fc" id="L16">    }</span>
+
+    protected void runPlayer(Player player, CardListFilter&lt;Card&gt; allCards) {
+<span class="fc" id="L19">        var ofOwner = allCards.ofOwner(player);</span>
+<span class="fc" id="L20">        var foods = ofOwner.atPile(&quot;buy-knight&quot;).ofType(&quot;food&quot;);</span>
+<span class="fc" id="L21">        var knights = ofOwner.atHand().ofType(&quot;knight&quot;);</span>
+
+<span class="fc" id="L23">        var count = Math.floorDiv(foods.count(), 2);</span>
+        // K + c &lt;= 5; c &lt;= 5 - K
+<span class="fc" id="L25">        count = Math.min(count, 5 - knights.count());</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        for (var i = 0; i &lt; count; i++)</span>
+<span class="fc" id="L27">            cardController.pickCard(player, Positions.HAND, &quot;knight&quot;);</span>
+<span class="fc" id="L28">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

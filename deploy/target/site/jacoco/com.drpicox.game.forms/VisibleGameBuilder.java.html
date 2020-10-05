@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VisibleGameBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Card Game</a> &gt; <a href="index.source.html" class="el_package">com.drpicox.game.forms</a> &gt; <span class="el_source">VisibleGameBuilder.java</span></div><h1>VisibleGameBuilder.java</h1><pre class="source lang-java linenums">package com.drpicox.game.forms;
+
+import com.drpicox.game.cards.Card;
+import com.drpicox.game.cards.CardController;
+import com.drpicox.game.cards.CardListFilter;
+import com.drpicox.game.games.Game;
+import com.drpicox.game.games.GameController;
+import com.drpicox.game.players.Player;
+import com.drpicox.game.players.PlayerController;
+import org.springframework.stereotype.Controller;
+
+import java.util.List;
+
+@Controller
+public class VisibleGameBuilder {
+
+    private final GameController gameController;
+    private final PlayerController playerController;
+    private final CardController cardController;
+
+<span class="fc" id="L21">    public VisibleGameBuilder(GameController gameController, PlayerController playerController, CardController cardController) {</span>
+<span class="fc" id="L22">        this.gameController = gameController;</span>
+<span class="fc" id="L23">        this.playerController = playerController;</span>
+<span class="fc" id="L24">        this.cardController = cardController;</span>
+<span class="fc" id="L25">    }</span>
+
+    public VisibleGameForm build(String gameName, String playerName) {
+<span class="fc" id="L28">        var game = gameController.find(gameName).get();</span>
+<span class="fc" id="L29">        return build(game, playerName);</span>
+    }
+
+    public VisibleGameForm build(Game game, String playerName) {
+<span class="fc" id="L33">        var result = new VisibleGameForm(playerName, game);</span>
+
+<span class="fc" id="L35">        var players = playerController.findByGame(game);</span>
+<span class="fc" id="L36">        addPlayers(players, result);</span>
+
+<span class="fc" id="L38">        var cards = cardController.findByGame(game);</span>
+<span class="fc" id="L39">        addCards(cards, result);</span>
+
+<span class="fc" id="L41">        return result;</span>
+    }
+
+    private void addPlayers(List&lt;Player&gt; players, VisibleGameForm result) {
+<span class="fc" id="L45">        players.forEach(p -&gt; addPlayer(p, result));</span>
+<span class="fc" id="L46">    }</span>
+
+    private void addPlayer(Player player, VisibleGameForm result) {
+<span class="fc" id="L49">        var vp = new VisiblePlayerForm(player.getName());</span>
+<span class="fc" id="L50">        result.addPlayer(vp);</span>
+<span class="fc" id="L51">    }</span>
+
+    private void addCards(CardListFilter&lt;Card&gt; cards, VisibleGameForm result) {
+<span class="fc" id="L54">        cards.forEach(c -&gt; addCard(c, result));</span>
+<span class="fc" id="L55">    }</span>
+
+    private void addCard(Card c, VisibleGameForm result) {
+<span class="fc" id="L58">        result.addCard(new VisibleCardForm(c.getType(), c.getName(), c.getOwnerName(), c.getSquare(), c.getPile()));</span>
+<span class="fc" id="L59">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

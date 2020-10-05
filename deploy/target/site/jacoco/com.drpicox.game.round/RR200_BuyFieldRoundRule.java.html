@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RR200_BuyFieldRoundRule.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Card Game</a> &gt; <a href="index.source.html" class="el_package">com.drpicox.game.round</a> &gt; <span class="el_source">RR200_BuyFieldRoundRule.java</span></div><h1>RR200_BuyFieldRoundRule.java</h1><pre class="source lang-java linenums">package com.drpicox.game.round;
+
+import com.drpicox.game.cards.Card;
+import com.drpicox.game.cards.CardController;
+import com.drpicox.game.cards.CardListFilter;
+import com.drpicox.game.players.Player;
+import com.drpicox.game.players.PlayerController;
+import org.springframework.stereotype.Component;
+
+@Component
+public class RR200_BuyFieldRoundRule extends EachPlayerRoundRule {
+
+    public RR200_BuyFieldRoundRule(PlayerController playerController, CardController cardController) {
+<span class="fc" id="L14">        super(playerController, cardController);</span>
+<span class="fc" id="L15">    }</span>
+
+    @Override
+    protected void runPlayer(Player player, CardListFilter&lt;Card&gt; allCards) {
+<span class="fc" id="L19">        var ofOwner = allCards.ofOwner(player);</span>
+<span class="fc" id="L20">        var fields = ofOwner.atAnySquare().ofType(&quot;field&quot;);</span>
+<span class="fc" id="L21">        var foods = ofOwner.atPile(&quot;buy-field&quot;).ofType(&quot;food&quot;);</span>
+
+<span class="fc" id="L23">        var required = computeRequiredFood(fields.count());</span>
+<span class="pc bpc" id="L24" title="1 of 2 branches missed.">        if (required &lt; 0) return;</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        if (foods.count() &lt; required) return;</span>
+<span class="fc" id="L26">        var freeSquare = findFreeSquare(fields);</span>
+<span class="fc" id="L27">        cardController.pickCard(player, freeSquare, &quot;field&quot;);</span>
+<span class="fc" id="L28">    }</span>
+
+    private int findFreeSquare(CardListFilter fields) {
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        for (var square = 1; square &lt; 5; square++)</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">            if (fields.atSquare(square).isEmpty()) return square;</span>
+
+<span class="fc" id="L34">        return 5;</span>
+    }
+
+    private int computeRequiredFood(int count) {
+<span class="fc bfc" id="L38" title="All 4 branches covered.">        switch (count) {</span>
+<span class="fc" id="L39">            case 2: return 2;</span>
+<span class="fc" id="L40">            case 3: return 4;</span>
+<span class="fc" id="L41">            case 4: return 6;</span>
+<span class="fc" id="L42">            default: return 9;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

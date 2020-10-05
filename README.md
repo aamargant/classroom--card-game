@@ -1,4 +1,4 @@
-## Practica LS2 2019/20
+## Practica LS2 2020/21
 
 Nom del grup:
 
@@ -9,6 +9,9 @@ Membres del grup:
 -
 -
 -
+
+Deploy path:
+- url to heroku running
 
 
 ## Setup
@@ -22,10 +25,18 @@ The deploy merges both into one single war.
 
 Setup Java BackEnd:
 
+- Install Java v11
+
 - Open the project with IntelliJ  
   (it will install all maven dependencies)
 
+Manual Java Backend:
+
+- Execute `./mvnw test`
+
 Setup Javascript BackEnd:
+
+- Install node v14 i yarn
 
 - Execute `yarn install`
 
@@ -51,8 +62,12 @@ React editor:
 Tests must be executed always successfully in the Backend (Intellij)
 and then in the Frontend.
 
-1. Execute all tests inside the package `com.drpicox.game`
-2. Run `yarn test -i --watchAll`
+1. Backend:
+  - Execute all tests inside the package `com.drpicox.game`
+  - or run `./mvnw test`
+
+2. Frontend:
+  - Run `yarn test -i --watchAll`
 
 > **Important Note**:  
 > Backend tests must run always before FrontEnd tests.
@@ -66,7 +81,7 @@ and then in the Frontend.
 The first time:
 
 - Create an account in Heroku 
-- Create a project called `planets-game-${yourPlanet}`
+- Create a project called `cards-game-${yourGroup}`
 - Follow the instructions to use your current repository with heroku  
   (probably something like `git add remote heroku https://...` )
 

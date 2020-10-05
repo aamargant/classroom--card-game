@@ -7,16 +7,10 @@ import java.util.List;
 
 public class PostListResponse {
 
-    private List list;
+    private final List list;
 
     public PostListResponse(List list) {
         this.list = list;
     }
 
-    @JsonValue
-    public Object getJsonValue() {
-        return new LinkedHashMap() {{
-            put("list", list);
-        }};
-    }
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/posts")
 public class BlogRestController {
 
-    private BlogController blogController;
+    private final BlogController blogController;
 
     public BlogRestController(BlogController blogController) {
         this.blogController = blogController;

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Card Game</a> &gt; <a href="index.source.html" class="el_package">com.drpicox.game.games</a> &gt; <span class="el_source">GameController.java</span></div><h1>GameController.java</h1><pre class="source lang-java linenums">package com.drpicox.game.games;
+
+import com.drpicox.game.players.PlayerController;
+import org.springframework.stereotype.Controller;
+
+import java.util.Optional;
+
+@Controller
+public class GameController {
+    private final PlayerController playerController;
+    private final GameRepository gameRepository;
+
+<span class="fc" id="L13">    public GameController(PlayerController playerController, GameRepository gameRepository) {</span>
+<span class="fc" id="L14">        this.playerController = playerController;</span>
+<span class="fc" id="L15">        this.gameRepository = gameRepository;</span>
+<span class="fc" id="L16">    }</span>
+
+    public Game replace(String gameName) {
+<span class="fc" id="L19">        var game = new Game(gameName);</span>
+<span class="fc" id="L20">        gameRepository.save(game);</span>
+<span class="fc" id="L21">        return game;</span>
+    }
+
+    public Optional&lt;Game&gt; find(String gameName) {
+<span class="fc" id="L25">        return gameRepository.findById(gameName);</span>
+    }
+
+    public void increaseRoundNumber(Game game) {
+<span class="fc" id="L29">        game.increaseRoundNumber();</span>
+<span class="fc" id="L30">        gameRepository.save(game);</span>
+<span class="fc" id="L31">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
