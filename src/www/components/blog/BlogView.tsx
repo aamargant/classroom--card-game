@@ -9,8 +9,6 @@ export function BlogView() {
   const go = (postId: string) =>
     dispatch(setView({ root: "BlogPost", postId }));
 
-  if (!list) return null;
-
   return (
     <ul>
       {list.map((post) => (

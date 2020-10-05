@@ -31,10 +31,6 @@ public class CardController {
         cardRepository.save(card);
     }
 
-    public List<Card> findByOwner(Player owner) {
-        return cardRepository.findByOwner(owner);
-    }
-
     public void pickCards(Player player, int position, String type, int count) {
         for (var i = 0; i < count; i++)
             pickCard(player, position, type);

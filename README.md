@@ -25,6 +25,8 @@ The deploy merges both into one single war.
 
 Setup Java BackEnd:
 
+- Install Java v11
+
 - Open the project with IntelliJ  
   (it will install all maven dependencies)
 
@@ -33,6 +35,8 @@ Manual Java Backend:
 - Execute `./mvnw test`
 
 Setup Javascript BackEnd:
+
+- Install node v14 i yarn
 
 - Execute `yarn install`
 

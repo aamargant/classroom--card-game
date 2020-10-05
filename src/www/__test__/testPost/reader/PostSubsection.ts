@@ -5,10 +5,6 @@ export class PostSubsection {
 
   constructor(private name: string) {}
 
-  getName(): string {
-    return this.name;
-  }
-
   addLine(line: PostLine) {
     this.lines.push(line);
   }

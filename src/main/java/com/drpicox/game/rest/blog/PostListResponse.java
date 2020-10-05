@@ -13,10 +13,4 @@ public class PostListResponse {
         this.list = list;
     }
 
-    @JsonValue
-    public Object getJsonValue() {
-        return new LinkedHashMap() {{
-            put("list", list);
-        }};
-    }
 }

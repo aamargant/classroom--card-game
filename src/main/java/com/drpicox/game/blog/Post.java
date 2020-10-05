@@ -24,40 +24,4 @@ public class Post {
         return body;
     }
 
-    @JsonValue
-    public Object getJsonValue() {
-        return new LinkedHashMap() {{
-            put("id", id);
-            put("title", title);
-            if (body != null) put("body", body);
-        }};
-    }
-
-    public String getSection(String section) {
-        var result = new StringBuilder();
-
-        var lines = getBody().lines().toArray(String[]::new);
-        var current = 0;
-        while (!isSection(lines[current], section)) current += 1;
-        current += 1;
-        while (!isSection(lines[current])) {
-            result.append(lines[current]).append("\n");
-            current += 1;
-        }
-
-        return result.toString();
-    }
-
-    private boolean isSection(String line, String section) {
-        return isSection(line) &&
-                line.substring(4)
-                        .toLowerCase()
-                        .trim()
-                        .replace(" ", "-")
-                        .equals(section);
-    }
-
-    private boolean isSection(String line) {
-        return line.startsWith("### ");
-    }
 }

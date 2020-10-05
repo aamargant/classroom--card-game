@@ -6,13 +6,8 @@ function compare(a: any, b: any): number {
   return 0;
 }
 
-let piles: any = null;
-let result: any[] = [];
 export function listPlays(state: CardsState): any[] {
-  if (state.cards.piles === piles) return result;
-  piles = state.cards.piles;
-
-  result = Object.values(state.cards.piles)
+  return Object.values(state.cards.piles)
     .flatMap((p) => p.cards)
     .map((card) => {
       const { id, ...play } = card;
@@ -25,6 +20,4 @@ export function listPlays(state: CardsState): any[] {
       if (a.type !== b.type) return compare(a.type, b.type);
       return compare(a.name, b.name);
     });
-
-  return result;
 }

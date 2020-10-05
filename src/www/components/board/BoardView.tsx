@@ -18,7 +18,6 @@ function PlayerView({ player }: { player: string }) {
 
 export function BoardView() {
   const players = useSelector(listPlayers);
-  if (players === null) return null;
 
   return (
     <div>

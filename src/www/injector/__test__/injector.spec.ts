@@ -85,6 +85,17 @@ test("Inject a list", () => {
   expect(values).toMatchObject([{ n: 1 }, { n: 2 }, { n: 3 }]);
 });
 
+test("Do not instance the same list twice", () => {
+  const injector = new Injector();
+  injector.register(Value, makeValue(1));
+  injector.register(Value, makeValue(2));
+  injector.register(Value, makeValue(3));
+
+  const values1 = injector.list(Value);
+  const values2 = injector.list(Value);
+  expect(values1).toBe(values2);
+});
+
 test("Configures the injector", () => {
   let foundInjector;
   const injector = new Injector();

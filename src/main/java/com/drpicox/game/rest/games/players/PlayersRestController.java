@@ -43,12 +43,4 @@ public class PlayersRestController {
 
         return responseBuilder.build(game, playerName);
     }
-
-    /*
-    @PutMapping("/{playerName}/save")
-    public VisibleGameForm save(@PathVariable String playerName, @RequestBody PlayGameForm playGameForm) {
-        playGameBuilder.replace(playerName, playGameForm);
-        return responseBuilder.build(playerName);
-    }
-    */
 }

@@ -88,16 +88,6 @@ public class CardListFilter<T extends ICard> implements Iterable<T> {
         return atPile(targetName + "-square-" + square);
     }
 
-    public List<String> asStrings(String format) {
-        return cards.stream().map(c -> asString(c, format)).collect(Collectors.toList());
-    }
-
-    private String asString(ICard c, String format) {
-        return format
-                .replaceAll("T", c.getType())
-                .replaceAll("N", c.getName());
-    }
-
     @Override
     public String toString() {
         return "{\n- " +
