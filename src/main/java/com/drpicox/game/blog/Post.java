@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.LinkedHashMap;
 
-public class Post {
+public class Post implements Comparable<Post> {
 
     private final String id;
     private final String title;
@@ -24,4 +24,8 @@ public class Post {
         return body;
     }
 
+    @Override
+    public int compareTo(Post o) {
+        return -id.compareTo(o.id);
+    }
 }

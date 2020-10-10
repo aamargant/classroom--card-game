@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.LineNumberReader;
 import java.net.URL;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class BlogController {
             var title = getTitle(f);
             result.add(new Post(id, title));
         }
+        Collections.sort(result);
         return result;
     }
 

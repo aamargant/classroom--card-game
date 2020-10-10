@@ -1,6 +1,7 @@
 package com.drpicox.game;
 
 import com.drpicox.game.tools.JsonOld;
+import com.google.common.truth.Truth;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,21 @@ public class BlogTest {
                 "\"id\": \"2020-08-17_the_game_begins\"," +
                 "\"title\": \"The game begins\"" +
                 "}"));
+    }
+
+    @Test
+    public void posts_are_in_date_order() throws Throwable {
+        var result = mockMvc.perform(get("/api/v1/posts"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        var list = new JsonOld(result.getResponse().getContentAsString()).get("list");
+        var size = list.size();
+        for (var i = 1; i < size; i++) {
+            var d0 = list.get(i-0).get("id").toString().split("_")[0];
+            var d1 = list.get(i-1).get("id").toString().split("_")[0];
+            Truth.assertThat(d0).isLessThan(d1);
+        }
     }
 
     @Test
