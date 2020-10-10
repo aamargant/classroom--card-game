@@ -1,8 +1,12 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { css } from "emotion";
-import { CardState } from "www/ducks/cards";
-import { selectCard } from "www/ducks/selectedCard";
+import { CardState, isOwnCard } from "www/ducks/cards";
+import {
+  selectCard,
+  deselectCard,
+  isCardSelected,
+} from "www/ducks/selectedCard";
 
 const typeColors = {
   food: "#EF5FA7",
@@ -59,15 +63,23 @@ const cardClassName = css`
 
 export function Card({ card }: { card: CardState }) {
   const dispatch = useDispatch();
-  const select = () => dispatch(selectCard(card));
+  const isOwn = useSelector((s: any) => isOwnCard(s, { card }));
+  const isSelected = useSelector((s: any) => isCardSelected(s, { card }));
+  const toggle = isSelected
+    ? () => dispatch(deselectCard())
+    : () => isOwn && dispatch(selectCard(card));
 
   return (
     <div
       className={cardClassName}
       data-testid={`card-${card.type}`}
       data-name={card.name}
-      onClick={select}
-      style={{ background: typeColors[card.type] }}
+      data-highlighted={isSelected ? "yes" : "no"}
+      onClick={toggle}
+      style={{
+        background: typeColors[card.type],
+        borderColor: isSelected ? "white" : "black",
+      }}
     >
       <div className="type">{typeIcons[card.type]}</div>
       <div className="name">{nameIcons[card.name]}</div>
