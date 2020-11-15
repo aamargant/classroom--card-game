@@ -58,4 +58,9 @@ public class CardController {
         card.moveToSquare(square);
         cardRepository.save(card);
     }
+
+    public void moveCardToSquare(Card card, Player player, int square) {
+        card.moveToSquare(player, square);
+        cardRepository.save(card);
+    }
 }

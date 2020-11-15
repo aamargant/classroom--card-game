@@ -89,6 +89,12 @@ public class Card implements ICard {
         this.square = square;
     }
 
+    public void moveToSquare(Player player, int square) {
+        this.pile = "";
+        this.owner = player;
+        this.square = square;
+    }
+
 
     @Override
     public String toString() {

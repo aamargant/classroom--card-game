@@ -20,7 +20,7 @@ public class HasAtTheSquareACardOf extends AbstractPostLineStep {
 
     @Override
     protected String getRegex() {
-        return "_([^_]+)_ has at the square _([^_]+)_ a _([^_]+)_ card of _([^_]+)_";
+        return "_([^_]+)_ has at the square _([^_]+)_ an? _([^_]+)_ card of _([^_]+)_";
     }
 
     @Override

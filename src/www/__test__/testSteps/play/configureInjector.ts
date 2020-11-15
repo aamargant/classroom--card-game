@@ -12,6 +12,7 @@ import { PlaysNCardsIntoHisSquarePile } from "./PlaysNCardsIntoHisSquarePile";
 import { PlaysNCardsIntoThePile } from "./PlaysNCardsIntoThePile";
 import { PlaysNCardsIntoTheSquarePile } from "./PlaysNCardsIntoTheSquarePile";
 import { PlaysNCardsOfIntoThePile } from "./PlaysNCardsOfIntoThePile";
+import { PlaysNCardsOfIntoTheSquarePile } from "./PlaysNCardsOfIntoTheSquarePile";
 import { ThereAreNoHighlightedCards } from "./ThereAreNoHighlightedCards";
 
 export default function configureTestStepsPlayInjector(injector: Injector) {
@@ -27,5 +28,6 @@ export default function configureTestStepsPlayInjector(injector: Injector) {
   injector.register(PostLineStep, PlaysNCardsIntoThePile);
   injector.register(PostLineStep, PlaysNCardsIntoTheSquarePile);
   injector.register(PostLineStep, PlaysNCardsOfIntoThePile);
+  injector.register(PostLineStep, PlaysNCardsOfIntoTheSquarePile);
   injector.register(PostLineStep, ThereAreNoHighlightedCards);
 }

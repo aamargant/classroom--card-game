@@ -4,7 +4,7 @@ import { getAllByCardOf, getBySquare } from "./helpers";
 export class HasAtTheSquareACardOf extends AbstractPostLineStep {
   constructor() {
     super(
-      /_([^_]+)_ has at the square _([^_]+)_ a _([^_]+)_ card of _([^_]+)_/i
+      /_([^_]+)_ has at the square _([^_]+)_ an? _([^_]+)_ card of _([^_]+)_/i
     );
   }
 
