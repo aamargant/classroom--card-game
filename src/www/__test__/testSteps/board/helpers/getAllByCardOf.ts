@@ -10,9 +10,7 @@ export function getAllByCardOf(
   const result = cards.filter((c) => c.dataset.name === name);
   if (result.length !== 0) return result;
 
-  prettyDOM(container);
-
-  const foundText = cards.length
+  let foundText = cards.length
     ? `It found a total of (${cards.length}) ${type} cards:\n` +
       cards
         .map(
@@ -21,6 +19,8 @@ export function getAllByCardOf(
         )
         .join("\n")
     : `It found no (0) cards ${type} .`;
+
+  foundText += "\n\nActual DOM:\n" + prettyDOM(container);
 
   throw new ReferenceError(
     `Cannot find a "${type}" card of "${name}".\n` +

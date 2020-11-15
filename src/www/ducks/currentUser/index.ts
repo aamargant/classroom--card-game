@@ -1,3 +1,4 @@
+export * from "./CurrentUserState";
 export * from "./getCurrentUser";
 export * from "./replaceCurrentUser";
 
